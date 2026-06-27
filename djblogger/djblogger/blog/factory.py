@@ -31,16 +31,17 @@ class PostFactory(factory.django.DjangoModelFactory):
             return
 
         if extracted:
-            for tag in extracted:
-                self.tags.add(
-                    "Python",
-                    "Django",
-                    "Database",
-                    "Pytest",
-                    "Javascript",
-                    "VSCode",
-                    "Deployment",
-                    "Full-stack",
-                    "ORM",
-                    "Front-end",
-                )
+            self.tags.add(extracted)
+        else:
+            self.tags.add(
+                "Python",
+                "Django",
+                "Database",
+                "Pytest",
+                "Javascript",
+                "VSCode",
+                "Deployment",
+                "Full-stack",
+                "ORM",
+                "Front-end",
+            )
