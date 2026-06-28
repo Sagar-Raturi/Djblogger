@@ -1,6 +1,6 @@
 import factory
 from django.contrib.auth.models import User
-from djblogger.djblogger.blog.models import Post
+from djblogger.blog.models import Post
 
 
 class UserFactory(factory.django.DjangoModelFactory):
@@ -24,3 +24,12 @@ class PostFactory(factory.django.DjangoModelFactory):
     author = factory.SubFactory(UserFactory)
     content = "x"
     status = "published"
+
+    @factory.post_generation
+    def tags(self, create, extracted, **kwargs):
+        if not create:
+            return
+
+        if extracted:
+            self.tags.add(*extracted)
+        
