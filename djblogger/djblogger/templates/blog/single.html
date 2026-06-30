@@ -1,0 +1,17 @@
+{% extends "../base/3-col-template.html" %}
+
+{% block content-left %}
+a
+{% endblock %}
+
+{% block content-mid %}
+<div>{{post.author}}</div>
+<div>{{post.updated_at|date:"M d, Y"}}</div>
+<div><h1>{{post.title}}</h1></div>
+<h2>{{post.subtitle}}</h2>
+<div>{{post.content}}</div>
+{% endblock %}
+
+{% block content-right %}
+b
+{% endblock %}
