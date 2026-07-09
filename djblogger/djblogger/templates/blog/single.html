@@ -1,17 +1,63 @@
 {% extends "../base/3-col-template.html" %}
 
 {% block content-left %}
-a
+{% include "../base/secondary-navbar.html" %}
 {% endblock %}
 
 {% block content-mid %}
-<div>{{post.author}}</div>
-<div>{{post.updated_at|date:"M d, Y"}}</div>
-<div><h1>{{post.title}}</h1></div>
-<h2>{{post.subtitle}}</h2>
-<div>{{post.content}}</div>
+
+<style>
+    .blogger h1 {
+        letter-spacing: -0.6px;
+        font-weight: 700;
+    }
+
+    .post h1 {
+        font-size: 24px;
+        font-weight: bold;
+    }
+
+    .post p{
+        font-family: "Merriweather";
+        font-size: 1.0625rem;
+        line-height: 32px;
+        letter-spacing: 0.2px;
+    }
+</style>
+
+<div class="blogger center mx-auto" style="max-width:638px">
+
+    <div class="text-muted">{{post.author}}</div>
+    <div class="text-muted pb-5">{{post.updated_at|date:"M d, Y"}}</div>
+    <h1 class="fw-bold pb-2">{{post.title}}</h1>
+    <h2 class="text-muted fs-4 pb-4">{{post.subtitle}}</h2>
+    <div class="post">
+    {{post.content | markdown | safe}}
+    </div>
+
+</div>
 {% endblock %}
 
 {% block content-right %}
-b
+{% sidebar_tag_cloud %}
+
+<div class="col-12">
+<div class="col-12">More from {{post.author}}</div>
+    {% for post in related %}
+    <a class="text-decoration-none" href="{{ post.get_absolute_url }}">
+        <div class="card mb-3 border-0 ps-1">
+            <div class="row">
+                <div class="col-9 pe-2">
+                    <span class="text-dark small">{{ post.author }}</span>
+                    <h1 class="mb-3 fs-6 p-0 text-dark fw-bold">{{ post.title| truncatechars:80}}</h1>
+                </div>
+                <div class="col-3">
+                    <img src="https://picsum.photos/205/115" class="img-fluid float-end">
+                </div>
+            </div>
+        <div>
+    </a>
+    {% endfor %}
+</div>
+
 {% endblock %}
